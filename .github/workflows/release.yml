@@ -1,0 +1,89 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*' # Trigger on version tags like v0.25.0, v1.0.0, etc.
+
+permissions:
+  contents: write # Required to create releases
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch all history for changelog generation
+
+      - name: Get tag version
+        id: version
+        run: |
+          TAG=${GITHUB_REF#refs/tags/}
+          VERSION=${TAG#v}
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Release version: $VERSION"
+
+      - name: Extract changelog for this version
+        id: changelog
+        run: |
+          TAG=${{ steps.version.outputs.tag }}
+          VERSION=${{ steps.version.outputs.version }}
+
+          # Extract the section for this version from CHANGELOG.md
+          awk "/^## \[$VERSION\]/,/^## \[/" CHANGELOG.md | \
+            sed '/^## \[/d' | \
+            sed '/^$/d' | \
+            head -n -1 > release_notes.md || true
+
+          # If no changelog entry found, create a basic one
+          if [ ! -s release_notes.md ]; then
+            echo "Release $VERSION" > release_notes.md
+            echo "" >> release_notes.md
+            echo "See [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md) for details." >> release_notes.md
+          fi
+
+          echo "Release notes:"
+          cat release_notes.md
+
+      - name: Verify module version matches tag
+        run: |
+          MODULE_VERSION=$(grep 'version = ' MODULE.bazel | head -1 | cut -d'"' -f2)
+          TAG_VERSION=${{ steps.version.outputs.version }}
+
+          if [ "$MODULE_VERSION" != "$TAG_VERSION" ]; then
+            echo "::error::MODULE.bazel version ($MODULE_VERSION) does not match tag version ($TAG_VERSION)"
+            echo "Please update the version in MODULE.bazel to match the git tag"
+            exit 1
+          fi
+
+          echo "✓ Version check passed: $MODULE_VERSION"
+
+      - name: Verify build works
+        uses: bazelbuild/setup-bazelisk@v3
+
+      - name: Build release
+        run: |
+          bazelisk build //:go-tree-sitter
+          bazelisk build //...
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: release_notes.md
+          draft: false
+          prerelease: false
+          generate_release_notes: true # Includes auto-generated notes from commits
+          fail_on_unmatched_files: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Release summary
+        run: |
+          echo "## Release Created! 🎉" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Version:** ${{ steps.version.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Release URL:** https://github.com/${{ github.repository }}/releases/tag/${{ steps.version.outputs.tag }}" >> $GITHUB_STEP_SUMMARY

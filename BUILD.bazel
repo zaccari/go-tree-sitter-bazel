@@ -1,0 +1,14 @@
+"""Main BUILD file for go-tree-sitter Bazel module"""
+
+# Re-export the library
+alias(
+    name = "go-tree-sitter",
+    actual = "@go-tree-sitter-raw//:go-tree-sitter",
+    visibility = ["//visibility:public"],
+)
+
+# Export patch file
+exports_files([
+    "tree_sitter.go.patch",
+    "BUILD.upstream",
+])

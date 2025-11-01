@@ -1,0 +1,15 @@
+
+# bazel
+.bazel/
+/bazel-*
+MODULE.bazel.lock
+
+# IDEs and editors
+.idea/
+.vscode/
+*.iml
+.DS_Store
+
+# Logs and reports
+*.log
+*.out

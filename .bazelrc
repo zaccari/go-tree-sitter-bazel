@@ -1,0 +1,16 @@
+common --java_language_version=21
+common --tool_java_language_version=21
+common --java_runtime_version=remotejdk_25
+common --tool_java_runtime_version=remotejdk_25
+
+# Use bzlmod (Bazel modules) instead of WORKSPACE
+common --enable_bzlmod
+
+# Show more detailed progress
+build --show_progress_rate_limit=0.5
+
+# Cache settings
+build --disk_cache=~/.cache/bazel
+
+# Combine folders
+build --symlink_prefix=.bazel/bazel-

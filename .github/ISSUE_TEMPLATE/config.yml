@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Upstream go-tree-sitter Issues
+    url: https://github.com/tree-sitter/go-tree-sitter/issues
+    about: For issues with go-tree-sitter itself (not this Bazel wrapper)
+  - name: Bazel Documentation
+    url: https://bazel.build/
+    about: General Bazel questions and documentation
+  - name: rules_go Documentation
+    url: https://github.com/bazelbuild/rules_go
+    about: Questions about rules_go
