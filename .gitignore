@@ -1,8 +1,6 @@
-
 # bazel
 .bazel/
 /bazel-*
-MODULE.bazel.lock
 
 # IDEs and editors
 .idea/

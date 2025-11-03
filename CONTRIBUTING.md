@@ -54,7 +54,7 @@ We welcome suggestions for improvements! When proposing an enhancement:
    ```bash
    make build
    # or
-   bazelisk build //:go-tree-sitter
+   bazelisk build //:go_tree_sitter
    ```
 
 3. **Query all targets**
@@ -72,7 +72,7 @@ Before submitting changes:
 1. **Build the library**
 
    ```bash
-   bazelisk build //:go-tree-sitter
+   bazelisk build //:go_tree_sitter
    ```
 
 2. **Test in a consuming project** (recommended)
@@ -106,7 +106,7 @@ Before submitting changes:
 
 Write clear, concise commit messages:
 
-```
+```text
 Short summary (50 chars or less)
 
 More detailed explanation if needed. Wrap at 72 characters.
@@ -120,12 +120,14 @@ Explain what and why, not how.
 ### Code Style
 
 **Starlark (BUILD, .bzl files):**
+
 - Run `buildifier` on all Bazel files before committing
 - Follow the [Bazel style guide][bazel-style]
 - Use meaningful target and variable names
 - Add comments for complex logic
 
 **Bash scripts:**
+
 - Use shellcheck for linting
 - Include error handling (`set -e`, etc.)
 - Add comments explaining non-obvious code
@@ -159,7 +161,7 @@ Explain what and why, not how.
 
 ## Updating to New Upstream Versions
 
-When go-tree-sitter releases a new version:
+When go_tree_sitter releases a new version:
 
 1. **Update version.bzl**
 
@@ -183,7 +185,7 @@ When go-tree-sitter releases a new version:
 4. **Check if the patch still applies**
 
    ```bash
-   bazelisk build //:go-tree-sitter
+   bazelisk build //:go_tree_sitter
    ```
 
    If the patch fails, you may need to update `tree_sitter.go.patch`:
@@ -207,7 +209,7 @@ The `tree_sitter.go.patch` file is critical for Bazel compatibility:
 
 ### Why the patch exists
 
-The upstream go-tree-sitter includes `#include "lib.c"` in CGo directives,
+The upstream go_tree_sitter includes `#include "lib.c"` in CGo directives,
 which conflicts with Bazel's compilation model. The patch removes this
 directive, allowing us to build the C library separately as a `cc_library`.
 
@@ -215,17 +217,19 @@ directive, allowing us to build the C library separately as a `cc_library`.
 
 If upstream changes require patch updates:
 
-1. Make changes to a local checkout of go-tree-sitter
+1. Make changes to a local checkout of go_tree_sitter
 2. Generate a new patch:
+
    ```bash
    diff -u original/tree_sitter.go modified/tree_sitter.go > tree_sitter.go.patch
    ```
+
 3. Test that the patch applies cleanly
 4. Document the changes in your PR
 
 ### Upstreaming considerations
 
-If possible, consider whether the patch could be upstreamed to go-tree-sitter
+If possible, consider whether the patch could be upstreamed to go_tree_sitter
 to make their code more Bazel-friendly. This could eliminate the need for
 patching in the future.
 
@@ -242,7 +246,7 @@ patching in the future.
 
 ## Project Structure
 
-```
+```text
 .
 ├── MODULE.bazel           # Module definition and dependencies
 ├── BUILD.bazel            # Main build file (public alias)

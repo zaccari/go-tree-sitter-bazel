@@ -8,7 +8,7 @@ on:
 
 jobs:
   check-version:
-    name: Check for new go-tree-sitter releases
+    name: Check for new go_tree_sitter releases
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -68,9 +68,9 @@ jobs:
             const issue = await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `Update to go-tree-sitter v${latestVersion}`,
+              title: `Update to go_tree_sitter v${latestVersion}`,
               labels: ['upstream-update', 'enhancement'],
-              body: `A new version of go-tree-sitter is available!
+              body: `A new version of go_tree_sitter is available!
 
             **Current version:** ${currentVersion}
             **Latest version:** ${latestVersion}
@@ -80,7 +80,7 @@ jobs:
             1. Update \`GO_TREE_SITTER_VERSION\` in \`version.bzl\`
             2. Run \`./print_sha.bash\` to compute the new integrity hash
             3. Update \`GO_TREE_SITTER_INTEGRITY\` in \`version.bzl\`
-            4. Verify the patch still applies: \`bazelisk build //:go-tree-sitter\`
+            4. Verify the patch still applies: \`bazelisk build //:go_tree_sitter\`
             5. Test the build thoroughly
             6. Update \`CHANGELOG.md\`
             7. Update version mapping table in \`README.md\`

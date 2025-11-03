@@ -11,7 +11,7 @@
 - [ ] Breaking change (fix or feature that would cause existing functionality
       to not work as expected)
 - [ ] Documentation update
-- [ ] Dependency update (upstream go-tree-sitter version)
+- [ ] Dependency update (upstream go_tree_sitter version)
 - [ ] Other (please describe):
 
 ## Related Issues
@@ -32,7 +32,7 @@ Fixes #
 
 <!-- Describe how you tested these changes -->
 
-- [ ] Builds successfully (`bazelisk build //:go-tree-sitter`)
+- [ ] Builds successfully (`bazelisk build //:go_tree_sitter`)
 - [ ] Tested with a consuming project using `local_path_override`
 - [ ] All Bazel targets build (`bazelisk query //...`)
 - [ ] Verified compatibility with Bazel version(s):
@@ -60,7 +60,7 @@ Fixes #
 
 ## For Dependency Updates
 
-<!-- If updating go-tree-sitter version, complete this section -->
+<!-- If updating go_tree_sitter version, complete this section -->
 
 - [ ] Updated `GO_TREE_SITTER_VERSION` in version.bzl
 - [ ] Updated `GO_TREE_SITTER_INTEGRITY` using ./print_sha.bash

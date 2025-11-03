@@ -1,7 +1,6 @@
-
 .PHONY: build
-build: ## Build go-tree-sitter
-	bazelisk build //:go-tree-sitter
+build: ## Build go_tree_sitter
+	bazelisk build //:go_tree_sitter
 
 .PHONY: query
 query: ## Query all Bazel targets

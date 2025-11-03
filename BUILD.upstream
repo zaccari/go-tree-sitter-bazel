@@ -26,7 +26,7 @@ cc_library(
 
 # Go bindings
 go_library(
-    name = "go-tree-sitter",
+    name = "go_tree_sitter",
     srcs = [
         "allocator.c",        # Keep this - it's meant to be compiled with Go
         "allocator.go",
