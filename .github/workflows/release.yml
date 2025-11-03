@@ -47,7 +47,7 @@ jobs:
           echo "✓ Version check passed: $MODULE_VERSION"
 
       - name: Prepare release notes and artifacts
-        run: .github/scripts/release_prep.sh > release_notes.txt
+        run: .github/scripts/release_prep.bash > release_notes.txt
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
