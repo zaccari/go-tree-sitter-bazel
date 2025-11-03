@@ -1,9 +1,9 @@
-"""Main BUILD file for go-tree-sitter Bazel module"""
+"""Main BUILD file for go_tree_sitter Bazel module"""
 
 # Re-export the library
 alias(
-    name = "go-tree-sitter",
-    actual = "@go-tree-sitter-raw//:go-tree-sitter",
+    name = "go_tree_sitter",
+    actual = "@go_tree_sitter_raw//:go_tree_sitter",
     visibility = ["//visibility:public"],
 )
 

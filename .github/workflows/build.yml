@@ -40,8 +40,8 @@ jobs:
             ${{ runner.os }}-bazel-${{ matrix.bazel-version }}-
             ${{ runner.os }}-bazel-
 
-      - name: Build go-tree-sitter
-        run: bazelisk build //:go-tree-sitter
+      - name: Build go_tree_sitter
+        run: bazelisk build //:go_tree_sitter
 
       - name: Query all targets
         run: bazelisk query //...

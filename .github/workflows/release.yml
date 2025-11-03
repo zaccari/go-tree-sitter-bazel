@@ -67,7 +67,7 @@ jobs:
 
       - name: Build release
         run: |
-          bazelisk build //:go-tree-sitter
+          bazelisk build //:go_tree_sitter
           bazelisk build //...
 
       - name: Create GitHub Release

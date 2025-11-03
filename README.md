@@ -1,6 +1,6 @@
-# go-tree-sitter Bazel Module
+# go_tree_sitter Bazel Module
 
-A Bazel module providing [go-tree-sitter][1] bindings for use in Bazel
+A Bazel module providing [go_tree_sitter][1] bindings for use in Bazel
 projects. This module handles the complexities of building the tree-sitter C
 library and Go bindings together using Bazel's modern module system (bzlmod).
 
@@ -8,7 +8,7 @@ library and Go bindings together using Bazel's modern module system (bzlmod).
 
 - 🚀 Easy integration with Bazel projects using `bazel_dep`
 - 🔧 Automatic management of tree-sitter C library compilation
-- 📦 Includes all upstream go-tree-sitter dependencies
+- 📦 Includes all upstream go_tree_sitter dependencies
 - 🎯 Support for all tree-sitter language parsers (C, C++, Go, Java,
      JavaScript, JSON, PHP, Python, Ruby, Rust, HTML, and more)
 - ⚡  Uses Bazel's modern module system (bzlmod)
@@ -42,7 +42,7 @@ git_override(
 
 ## Usage
 
-Once added to your `MODULE.bazel`, you can use go-tree-sitter in your Go code:
+Once added to your `MODULE.bazel`, you can use go_tree_sitter in your Go code:
 
 ### In your BUILD.bazel file
 
@@ -54,7 +54,7 @@ go_library(
     srcs = ["mycode.go"],
     importpath = "github.com/yourorg/yourproject/mylib",
     deps = [
-        "@go-tree-sitter//:go-tree-sitter",
+        "@go_tree_sitter//:go_tree_sitter",
         # Add language-specific parsers as needed
         "@com_github_tree_sitter_tree_sitter_go//:go",
         "@com_github_tree_sitter_tree_sitter_python//:python",
@@ -115,7 +115,7 @@ All parsers are available as dependencies through the module's go_deps extension
 
 ```bash
 # Build the module
-bazelisk build //:go-tree-sitter
+bazelisk build //:go_tree_sitter
 
 # Query all targets
 bazelisk query //...
@@ -133,7 +133,7 @@ make help   # Show all available targets
 
 This module uses a Bazel module extension to:
 
-1. Fetch the upstream go-tree-sitter source code from GitHub
+1. Fetch the upstream go_tree_sitter source code from GitHub
 2. Apply a small patch to make the code Bazel-compatible (removes the `lib.c`
    inclusion from CGo directives)
 3. Build the tree-sitter C library separately
@@ -145,9 +145,9 @@ Bazel's compilation model.
 
 ## Version Mapping
 
-This module's version tracks the upstream go-tree-sitter version:
+This module's version tracks the upstream go_tree_sitter version:
 
-| Module Version | go-tree-sitter Version | Notes |
+| Module Version | go_tree_sitter Version | Notes |
 |----------------|------------------------|-------|
 | 0.25.0         | 0.25 (branch)          | Tracking branch until v0.25.0 tag is released |
 
@@ -166,7 +166,7 @@ conflicts in Bazel. Instead, the C library is built separately as a
 - `extensions.bzl` - Module extension for fetching upstream source
 - `version.bzl` - Version constants and integrity hashes
 - `BUILD.bazel` - Main build file with public alias
-- `BUILD.upstream` - Build rules for upstream go-tree-sitter source
+- `BUILD.upstream` - Build rules for upstream go_tree_sitter source
 - `tree_sitter.go.patch` - Compatibility patch for Bazel builds
 
 ## Contributing
@@ -178,7 +178,7 @@ Contributions are welcome! Please feel free to submit issues or pull requests.
 1. Update `GO_TREE_SITTER_VERSION` in `version.bzl`
 2. Run `./print_sha.bash` to compute the new integrity hash
 3. Update `GO_TREE_SITTER_INTEGRITY` in `version.bzl`
-4. Test the build: `bazelisk build //:go-tree-sitter`
+4. Test the build: `bazelisk build //:go_tree_sitter`
 5. Update `CHANGELOG.md` with the new version
 
 ## License
@@ -186,18 +186,18 @@ Contributions are welcome! Please feel free to submit issues or pull requests.
 This project is licensed under the MIT License - see the [LICENSE](LICENSE)
 file for details.
 
-The upstream [go-tree-sitter](https://github.com/tree-sitter/go-tree-sitter)
+The upstream [go_tree_sitter](https://github.com/tree-sitter/go-tree-sitter)
 project is also licensed under the MIT License.
 
 ## Acknowledgments
 
 - [tree-sitter][2] - The underlying parsing library
-- [go-tree-sitter][1] - Go bindings for tree-sitter
+- [go_tree_sitter][1] - Go bindings for tree-sitter
 - [rules_go][3] - Bazel rules for Go
 
 ## Resources
 
-- [go-tree-sitter Documentation](https://github.com/tree-sitter/go-tree-sitter)
+- [go_tree_sitter Documentation](https://github.com/tree-sitter/go-tree-sitter)
 - [tree-sitter Documentation](https://tree-sitter.github.io/tree-sitter/)
 - [Bazel Documentation](https://bazel.build/)
 - [rules_go Documentation](https://github.com/bazelbuild/rules_go/blob/master/docs/go/core/bzlmod.md)
