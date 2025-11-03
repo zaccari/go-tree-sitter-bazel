@@ -80,7 +80,7 @@ jobs:
           VERSION=${{ steps.version.outputs.version }}
           TAR_PATH=go_tree_sitter-${VERSION}.tar.gz
 
-          tar --exclude='.*' --exclude='*.md' -czf "$TAR_PATH" .
+          tar --exclude-vcs -czf "$TAR_PATH" .
           echo "Created tarball: $TAR_PATH"
           echo "tar_path=$TAR_PATH" >> "$GITHUB_OUTPUT"
 
@@ -92,7 +92,7 @@ jobs:
           prerelease: false
           generate_release_notes: true # Includes auto-generated notes from commits
           fail_on_unmatched_files: false
-          files: go_tree_sitter-*.tar.gz
+          files: ${{ steps.tarball.outputs.tar_path }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
