@@ -1,7 +1,5 @@
 """Main BUILD file for go_tree_sitter Bazel module"""
 
-load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
-
 alias(
     name = "go_tree_sitter",
     actual = "@go_tree_sitter_raw//:go_tree_sitter",
