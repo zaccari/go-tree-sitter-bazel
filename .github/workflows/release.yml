@@ -80,8 +80,9 @@ jobs:
           VERSION=${{ steps.version.outputs.version }}
           TAR_PATH=go_tree_sitter-${VERSION}.tar.gz
 
-          tar --exclude='.*' --exclude='*.md' -czf "$TAR_PATH" ./*
+          tar --exclude='.*' --exclude='*.md' -czf "$TAR_PATH" .
           echo "Created tarball: $TAR_PATH"
+          echo "tar_path=$TAR_PATH" >> "$GITHUB_OUTPUT"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
