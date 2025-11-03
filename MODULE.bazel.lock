@@ -163,7 +163,7 @@
   "moduleExtensions": {
     "//:extensions.bzl%go_tree_sitter_source_code": {
       "general": {
-        "bzlTransitiveDigest": "15ZJKLadtLRfdcxHPq9tHyA0IP0mCwWWTPge3G/O4bk=",
+        "bzlTransitiveDigest": "8HfUkS+/RyCPyUvrwI70vA6ue4zzNWuqzfYHgOL+SwI=",
         "usagesDigest": "72LZ+HOW5L6xMfXXOlVY7HcuZCgVyHwfN8wVyN7VYls=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
