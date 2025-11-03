@@ -2,6 +2,9 @@
 .bazel/
 /bazel-*
 
+# release files
+*.tar.gz
+
 # IDEs and editors
 .idea/
 .vscode/
