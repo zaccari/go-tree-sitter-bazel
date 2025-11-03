@@ -33,11 +33,16 @@ jobs:
           TAG=${{ steps.version.outputs.tag }}
           VERSION=${{ steps.version.outputs.version }}
 
-          # Extract the section for this version from CHANGELOG.md
-          awk "/^## \[$VERSION\]/,/^## \[/" CHANGELOG.md | \
-            sed '/^## \[/d' | \
-            sed '/^$/d' | \
-            head -n -1 > release_notes.md || true
+          # # Extract the section for this version from CHANGELOG.md
+          # awk "/^## \[$VERSION\]/,/^## \[/" CHANGELOG.md | \
+          #   sed 's/^##[[:space:]]*//' | \
+          #   sed '/^$/d' | \
+          #   head -n -1 > release_notes.md || true
+
+          # # Added version above; now add section from CHANGELOG.md to release_notes.md
+          # cat CHANGELOG.md | \
+          #   awk "/^## \[$VERSION\]/,/^## \[/" | \
+          #   sed '1d;$d' >> release_notes.md || true
 
           # If no changelog entry found, create a basic one
           if [ ! -s release_notes.md ]; then
