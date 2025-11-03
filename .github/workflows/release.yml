@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0 # Fetch all history for changelog generation
 
@@ -68,7 +68,6 @@ jobs:
       - name: Build release
         run: |
           bazelisk build //:go_tree_sitter
-          bazelisk build //...
 
       - name: Create tarball
         id: tarball
@@ -87,7 +86,7 @@ jobs:
           prerelease: false
           generate_release_notes: true # Includes auto-generated notes from commits
           fail_on_unmatched_files: false
-          files: ${{ steps.tarball.outputs.TAR_PATH }}
+          files: go_tree_sitter-*.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
