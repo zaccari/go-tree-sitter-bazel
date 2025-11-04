@@ -1,9 +1,5 @@
 """Main BUILD file for go_tree_sitter Bazel module"""
 
-load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
-
-package(default_visibility = ["//visibility:public"])
-
 alias(
     name = "go_tree_sitter",
     actual = "@go_tree_sitter_raw//:go_tree_sitter",
@@ -11,18 +7,6 @@ alias(
 )
 
 exports_files([
-    "extensions.bzl",
-    "version.bzl",
     "tree_sitter.go.patch",
     "BUILD.upstream",
 ])
-
-bzl_library(
-    name = "extensions",
-    srcs = ["extensions.bzl"],
-)
-
-bzl_library(
-    name = "version",
-    srcs = ["version.bzl"],
-)

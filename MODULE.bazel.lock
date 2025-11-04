@@ -162,37 +162,6 @@
   },
   "selectedYankedVersions": {},
   "moduleExtensions": {
-    "//:extensions.bzl%go_tree_sitter_source_code": {
-      "general": {
-        "bzlTransitiveDigest": "8HfUkS+/RyCPyUvrwI70vA6ue4zzNWuqzfYHgOL+SwI=",
-        "usagesDigest": "72LZ+HOW5L6xMfXXOlVY7HcuZCgVyHwfN8wVyN7VYls=",
-        "recordedFileInputs": {},
-        "recordedDirentsInputs": {},
-        "envVariables": {},
-        "generatedRepoSpecs": {
-          "go_tree_sitter_raw": {
-            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_archive",
-            "attributes": {
-              "url": "https://github.com/tree-sitter/go-tree-sitter/archive/56cc6ef292d5d6a755994d3cefadc1624097fbfb.tar.gz",
-              "strip_prefix": "go-tree-sitter-56cc6ef292d5d6a755994d3cefadc1624097fbfb",
-              "integrity": "sha256-jzEoZlYDCtzOiKTGLioxCJDMoS+f7MR1xDVBKlZlfYI=",
-              "build_file": "@@//:BUILD.upstream",
-              "patches": [
-                "@@//:tree_sitter.go.patch"
-              ],
-              "patch_strip": 0
-            }
-          }
-        },
-        "recordedRepoMappingEntries": [
-          [
-            "",
-            "bazel_tools",
-            "bazel_tools"
-          ]
-        ]
-      }
-    },
     "@@rules_kotlin+//src/main/starlark/core/repositories:bzlmod_setup.bzl%rules_kotlin_extensions": {
       "general": {
         "bzlTransitiveDigest": "OlvsB0HsvxbR8ZN+J9Vf00X/+WVz/Y/5Xrq2LgcVfdo=",
