@@ -1,5 +1,7 @@
 """Main BUILD file for go_tree_sitter Bazel module"""
 
+load("@buildifier_prebuilt//:rules.bzl", "buildifier")
+
 alias(
     name = "go_tree_sitter",
     actual = "@go_tree_sitter_raw//:go_tree_sitter",
@@ -10,3 +12,19 @@ exports_files([
     "tree_sitter.go.patch",
     "BUILD.upstream",
 ])
+
+buildifier(
+    name = "buildifier",
+    exclude_patterns = ["./.git/*"],
+    lint_mode = "fix",
+    mode = "fix",
+    tags = ["manual"],  # tag as manual so windows ci does not build it by default
+)
+
+buildifier(
+    name = "buildifier.check",
+    exclude_patterns = ["./.git/*"],
+    lint_mode = "warn",
+    mode = "diff",
+    tags = ["manual"],  # tag as manual so windows ci does not build it by default
+)
