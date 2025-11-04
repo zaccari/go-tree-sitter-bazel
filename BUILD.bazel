@@ -8,6 +8,12 @@ alias(
     visibility = ["//visibility:public"],
 )
 
+alias(
+    name = "go-tree-sitter",
+    actual = "@go_tree_sitter_raw//:go_tree_sitter",
+    visibility = ["//visibility:public"],
+)
+
 exports_files([
     "tree_sitter.go.patch",
     "BUILD.upstream",
