@@ -6,6 +6,7 @@ set -o errexit -o nounset -o pipefail
 # https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables
 TAG=${GITHUB_REF_NAME}
 VERSION=${TAG:1}
+SHA=${GITHUB_SHA}
 
 # The prefix is chosen to match what GitHub generates for source archives
 PREFIX="go_tree_sitter-$VERSION"
@@ -19,6 +20,11 @@ Add the following to your \`MODULE.bazel\` file to install go_tree_sitter:
 
 \`\`\`starlark
 bazel_dep(name = "go_tree_sitter", version = "$VERSION")
+git_override(
+    module_name = "go_tree_sitter",
+    remote = "https://github.com/zaccari/go-tree-sitter-bazel.git",
+    commit = "$SHA",
+)
 \`\`\`
 
 Note, go_tree_sitter requires bzlmod, WORKSPACE mode is no longer supported.

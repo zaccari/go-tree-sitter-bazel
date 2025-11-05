@@ -25,20 +25,14 @@ Add this module to your `MODULE.bazel` file:
 
 ```starlark
 bazel_dep(name = "go_tree_sitter", version = "0.25.0")
-```
-
-If you're using a local or development version, you can use a Git override:
-
-```starlark
-bazel_dep(name = "go_tree_sitter", version = "0.25.0")
-
-# For development or until published to BCR
 git_override(
     module_name = "go_tree_sitter",
     remote = "https://github.com/zaccari/go-tree-sitter-bazel.git",
     commit = "<commit-sha>",
 )
 ```
+
+Note: BCR does not currently recommend hosting go modules.
 
 ## Usage
 

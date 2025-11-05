@@ -14,11 +14,6 @@ alias(
     visibility = ["//visibility:public"],
 )
 
-# exports_files([
-#     "tree_sitter.go.patch",
-#     "BUILD.upstream",
-# ])
-
 go_test(
     name = "go-tree-sitter_test",
     srcs = [
