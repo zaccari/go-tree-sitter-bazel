@@ -1,10 +1,20 @@
-name: Build
+name: CI
 
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - "**/README.md"
+      - CHANGELOG.md
+      - CONTRIBUTING.md
+      - LICENSE
   pull_request:
     branches: [main]
+    paths-ignore:
+      - "**/README.md"
+      - CHANGELOG.md
+      - CONTRIBUTING.md
+      - LICENSE
   workflow_dispatch: # Allow manual triggering
 
 jobs:
@@ -43,11 +53,8 @@ jobs:
       - name: Build go_tree_sitter
         run: bazelisk build //:go_tree_sitter
 
-      - name: Query all targets
-        run: bazelisk query //...
-
-      - name: Build all targets
-        run: bazelisk build //...
+      - name: Test go_tree_sitter
+        run: bazelisk test --test_output=all //:go-tree-sitter_test
 
   build-summary:
     name: Build Summary
