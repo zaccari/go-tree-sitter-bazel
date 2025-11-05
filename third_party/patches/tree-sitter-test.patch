@@ -1,0 +1,57 @@
+diff --git a/src/BUILD.bazel b/src/BUILD.bazel
+new file mode 100644
+index 0000000..f1250fb
+--- /dev/null
++++ b/src/BUILD.bazel
+@@ -0,0 +1,3 @@
++exports_files([
++    "parser.c",
++])
+diff --git a/bindings/go/BUILD.bazel b/bindings/go/BUILD.bazel
+index e61716b..165cf82 100644
+--- a/bindings/go/BUILD.bazel
++++ b/bindings/go/BUILD.bazel
+@@ -2,10 +2,13 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+ go_library(
+     name = "go",
+-    srcs = ["binding.go"],
++    srcs = [
++        "binding.go",
++        "//src:parser.c",
++    ],
+     cgo = True,
+     copts = ["-std=c11 -fPIC"],
+     importpath = "github.com/tree-sitter/tree-sitter-c/bindings/go",
+     visibility = ["//visibility:public"],
++    cgo_deps = ["//src:tree_sitter"],
+ )
+
+diff --git a/src/tree_sitter/BUILD.bazel b/src/tree_sitter/BUILD.bazel
+new file mode 100644
+index 0000000..f1250fb
+--- /dev/null
++++ b/src/tree_sitter/BUILD.bazel
+@@ -0,0 +1,8 @@
++load("@rules_cc//cc:defs.bzl", "cc_library")
++
++cc_library(
++    name = "tree_sitter",
++    hdrs = glob(["*.h"]),
++    includes = ["."],
++    visibility = ["//visibility:public"],
++)
+diff --git a/bindings/go/binding.go b/bindings/go/binding.go
+index 0000000..0000000
+--- a/bindings/go/binding.go
++++ b/bindings/go/binding.go
+@@ -1,7 +1,8 @@
+ package tree_sitter_c
+
+ // #cgo CFLAGS: -std=c11 -fPIC
+-// #include "../../src/parser.c"
++// extern void *tree_sitter_c();
++//
+ import "C"
+
+ import "unsafe"

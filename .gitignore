@@ -1,6 +1,7 @@
 # bazel
 .bazel/
 /bazel-*
+MODULE.bazel.lock
 
 # release files
 *.tar.gz

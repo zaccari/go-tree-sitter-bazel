@@ -1,0 +1,96 @@
+diff --git a/common/BUILD.bazel b/common/BUILD.bazel
+new file mode 100644
+index 0000000..f1250fb
+--- /dev/null
++++ b/common/BUILD.bazel
+@@ -0,0 +1,3 @@
++exports_files([
++    "scanner.h",
++])
+diff --git a/php/src/BUILD.bazel b/php/src/BUILD.bazel
+new file mode 100644
+index 0000000..f1250fb
+--- /dev/null
++++ b/php/src/BUILD.bazel
+@@ -0,0 +1,11 @@
++load("@rules_cc//cc:defs.bzl", "cc_library")
++
++cc_library(
++    name = "parser",
++    srcs = ["parser.c", "scanner.c"],
++    hdrs = glob(["tree_sitter/*.h"]) + ["//common:scanner.h"],
++    includes = ["."],
++    copts = ["-std=c11"],
++    visibility = ["//visibility:public"],
++)
++
+diff --git a/php_only/src/BUILD.bazel b/php_only/src/BUILD.bazel
+new file mode 100644
+index 0000000..f1250fb
+--- /dev/null
++++ b/php_only/src/BUILD.bazel
+@@ -0,0 +1,11 @@
++load("@rules_cc//cc:defs.bzl", "cc_library")
++
++cc_library(
++    name = "parser",
++    srcs = ["parser.c", "scanner.c"],
++    hdrs = glob(["tree_sitter/*.h"]) + ["//common:scanner.h"],
++    includes = ["."],
++    copts = ["-std=c11"],
++    visibility = ["//visibility:public"],
++)
++
+diff --git a/bindings/go/BUILD.bazel b/bindings/go/BUILD.bazel
+index e61716b..8f9c2d5 100644
+--- a/bindings/go/BUILD.bazel
++++ b/bindings/go/BUILD.bazel
+@@ -2,16 +2,19 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+ go_library(
+     name = "go",
+     srcs = [
+         "php.go",
+         "php_only.go",
+     ],
+     cgo = True,
+-    copts = ["-std=c11 -fPIC"],
++    cdeps = [
++        "//php/src:parser",
++        "//php_only/src:parser",
++    ],
+     cppopts = [
+         "-Iphp_only/src",
+         "-Itree-sitter-php",
+     ],
+     importpath = "github.com/tree-sitter/tree-sitter-php/bindings/go",
+     visibility = ["//visibility:public"],
+ )
+diff --git a/bindings/go/php.go b/bindings/go/php.go
+index 0000000..0000000
+--- a/bindings/go/php.go
++++ b/bindings/go/php.go
+@@ -2,8 +2,7 @@ package tree_sitter_php
+
+ // #cgo CPPFLAGS: -I../../tree-sitter-php
+ // #cgo CFLAGS: -std=c11 -fPIC
+-// #include "../../php/src/parser.c"
+-// #include "../../php/src/scanner.c"
++// extern void *tree_sitter_php();
+ import "C"
+
+ import "unsafe"
+diff --git a/bindings/go/php_only.go b/bindings/go/php_only.go
+index 0000000..0000000
+--- a/bindings/go/php_only.go
++++ b/bindings/go/php_only.go
+@@ -2,8 +2,7 @@ package tree_sitter_php
+
+ // #cgo CPPFLAGS: -I../../php_only/src
+ // #cgo CFLAGS: -std=c11 -fPIC
+-// #include "../../php_only/src/parser.c"
+-// #include "../../php_only/src/scanner.c"
++// extern void *tree_sitter_php_only();
+ import "C"
+
+ import "unsafe"

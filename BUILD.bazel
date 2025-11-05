@@ -1,6 +1,6 @@
 """Main BUILD file for go_tree_sitter Bazel module"""
 
-load("@buildifier_prebuilt//:rules.bzl", "buildifier")
+load("@rules_go//go:def.bzl", "go_test")
 
 alias(
     name = "go_tree_sitter",
@@ -14,23 +14,37 @@ alias(
     visibility = ["//visibility:public"],
 )
 
-exports_files([
-    "tree_sitter.go.patch",
-    "BUILD.upstream",
-])
+# exports_files([
+#     "tree_sitter.go.patch",
+#     "BUILD.upstream",
+# ])
 
-buildifier(
-    name = "buildifier",
-    exclude_patterns = ["./.git/*"],
-    lint_mode = "fix",
-    mode = "fix",
-    tags = ["manual"],  # tag as manual so windows ci does not build it by default
-)
-
-buildifier(
-    name = "buildifier.check",
-    exclude_patterns = ["./.git/*"],
-    lint_mode = "warn",
-    mode = "diff",
-    tags = ["manual"],  # tag as manual so windows ci does not build it by default
+go_test(
+    name = "go-tree-sitter_test",
+    srcs = [
+        "@go_tree_sitter_raw//:edit_test.go",
+        "@go_tree_sitter_raw//:language_test.go",
+        "@go_tree_sitter_raw//:lookahead_iterator_test.go",
+        "@go_tree_sitter_raw//:node_test.go",
+        "@go_tree_sitter_raw//:parser_test.go",
+        "@go_tree_sitter_raw//:query_test.go",
+        "@go_tree_sitter_raw//:tree_cursor_test.go",
+        "@go_tree_sitter_raw//:tree_test.go",
+    ],
+    deps = [
+        ":go_tree_sitter",
+        "@com_github_stretchr_testify//assert",
+        "@com_github_tree_sitter_tree_sitter_c//bindings/go",
+        "@com_github_tree_sitter_tree_sitter_cpp//bindings/go",
+        "@com_github_tree_sitter_tree_sitter_embedded_template//bindings/go",
+        "@com_github_tree_sitter_tree_sitter_go//bindings/go",
+        "@com_github_tree_sitter_tree_sitter_html//bindings/go",
+        "@com_github_tree_sitter_tree_sitter_java//bindings/go",
+        "@com_github_tree_sitter_tree_sitter_javascript//bindings/go",
+        "@com_github_tree_sitter_tree_sitter_json//bindings/go",
+        "@com_github_tree_sitter_tree_sitter_php//bindings/go",
+        "@com_github_tree_sitter_tree_sitter_python//bindings/go",
+        "@com_github_tree_sitter_tree_sitter_ruby//bindings/go",
+        "@com_github_tree_sitter_tree_sitter_rust//bindings/go",
+    ],
 )
