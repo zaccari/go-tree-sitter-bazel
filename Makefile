@@ -1,6 +1,6 @@
 .PHONY: fmt
 fmt: ## Format all Bazel files
-	bazelisk run //:buildifier
+	buildifier -r .
 
 .PHONY: build
 build: ## Build go_tree_sitter
