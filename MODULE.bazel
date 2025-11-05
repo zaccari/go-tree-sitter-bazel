@@ -36,77 +36,82 @@ http_archive(
 # Go dependencies for the bindings
 go_deps = use_extension("@gazelle//:extensions.bzl", "go_deps")
 go_deps.from_file(go_mod = "@go_tree_sitter_raw//:go.mod")
+use_repo(
+    go_deps,
+    "com_github_mattn_go_pointer",
+    "com_github_stretchr_testify",
+)
+
+go_deps_dev = use_extension("@gazelle//:extensions.bzl", "go_deps", dev_dependency = True)
 
 # Patch tree-sitter language bindings to include C sources and modify CGO includes
 # Simple parsers (parser.c only)
-go_deps.module_override(
+go_deps_dev.module_override(
     patch_strip = 1,
     patches = ["@go_tree_sitter//third_party/patches:tree-sitter-c.patch"],
     path = "github.com/tree-sitter/tree-sitter-c",
 )
-go_deps.module_override(
+go_deps_dev.module_override(
     patch_strip = 1,
     patches = ["@go_tree_sitter//third_party/patches:tree-sitter-go.patch"],
     path = "github.com/tree-sitter/tree-sitter-go",
 )
-go_deps.module_override(
+go_deps_dev.module_override(
     patch_strip = 1,
     patches = ["@go_tree_sitter//third_party/patches:tree-sitter-java.patch"],
     path = "github.com/tree-sitter/tree-sitter-java",
 )
-go_deps.module_override(
+go_deps_dev.module_override(
     patch_strip = 1,
     patches = ["@go_tree_sitter//third_party/patches:tree-sitter-json.patch"],
     path = "github.com/tree-sitter/tree-sitter-json",
 )
-go_deps.module_override(
+go_deps_dev.module_override(
     patch_strip = 1,
     patches = ["@go_tree_sitter//third_party/patches:tree-sitter-embedded-template.patch"],
     path = "github.com/tree-sitter/tree-sitter-embedded-template",
 )
 
 # Parsers with scanner (parser.c + scanner.c)
-go_deps.module_override(
+go_deps_dev.module_override(
     patch_strip = 1,
     patches = ["@go_tree_sitter//third_party/patches:tree-sitter-cpp.patch"],
     path = "github.com/tree-sitter/tree-sitter-cpp",
 )
-go_deps.module_override(
+go_deps_dev.module_override(
     patch_strip = 1,
     patches = ["@go_tree_sitter//third_party/patches:tree-sitter-javascript.patch"],
     path = "github.com/tree-sitter/tree-sitter-javascript",
 )
-go_deps.module_override(
+go_deps_dev.module_override(
     patch_strip = 1,
     patches = ["@go_tree_sitter//third_party/patches:tree-sitter-python.patch"],
     path = "github.com/tree-sitter/tree-sitter-python",
 )
-go_deps.module_override(
+go_deps_dev.module_override(
     patch_strip = 1,
     patches = ["@go_tree_sitter//third_party/patches:tree-sitter-ruby.patch"],
     path = "github.com/tree-sitter/tree-sitter-ruby",
 )
-go_deps.module_override(
+go_deps_dev.module_override(
     patch_strip = 1,
     patches = ["@go_tree_sitter//third_party/patches:tree-sitter-html.patch"],
     path = "github.com/tree-sitter/tree-sitter-html",
 )
-go_deps.module_override(
+go_deps_dev.module_override(
     patch_strip = 1,
     patches = ["@go_tree_sitter//third_party/patches:tree-sitter-rust.patch"],
     path = "github.com/tree-sitter/tree-sitter-rust",
 )
 
 # Special case: PHP has both php/ and php_only/ directories
-go_deps.module_override(
+go_deps_dev.module_override(
     patch_strip = 1,
     patches = ["@go_tree_sitter//third_party/patches:tree-sitter-php.patch"],
     path = "github.com/tree-sitter/tree-sitter-php",
 )
 use_repo(
-    go_deps,
-    "com_github_mattn_go_pointer",
-    "com_github_stretchr_testify",
+    go_deps_dev,
     "com_github_tree_sitter_tree_sitter_c",
     "com_github_tree_sitter_tree_sitter_cpp",
     "com_github_tree_sitter_tree_sitter_embedded_template",
